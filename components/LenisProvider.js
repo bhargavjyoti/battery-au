@@ -1,26 +1,15 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { ReactLenis } from "lenis/react";
 
 export default function LenisProvider({ children }) {
-  const [options, setOptions] = useState({
+  // Pass the exact same luxurious desktop scroll configurations and sync touch events uniformly
+  const options = {
     lerp: 0.07,
     duration: 1.4,
-    syncTouch: true,
-  });
-
-  useEffect(() => {
-    // Detect mobile viewport screens
-    const isMobile = window.innerWidth < 768;
-    if (isMobile) {
-      setOptions({
-        lerp: 0.12,         // Snappier convergence (less intense inertia lag)
-        duration: 0.8,      // Shorter glide timeframe
-        syncTouch: false,   // Allow mobile native inertial swiping to take precedence
-      });
-    }
-  }, []);
+    syncTouch: true, // Forces touch gestures to use the exact same smooth inertia scroll curves
+  };
 
   return (
     <ReactLenis root options={options}>
