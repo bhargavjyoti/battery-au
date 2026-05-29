@@ -94,7 +94,7 @@ export default function Home() {
       <Navbar />
 
       {/* Modern High-Fidelity Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-28 pb-16 bg-gradient-to-br from-blue-50 via-white to-red-50">
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-32 pb-20 bg-gradient-to-br from-blue-50 via-white to-red-50">
         {/* Animated Background Vector Accents */}
         <div className="absolute inset-0 overflow-hidden">
           <motion.div
@@ -107,7 +107,7 @@ export default function Home() {
               repeat: Infinity,
               ease: "linear",
             }}
-            className="absolute top-20 right-1/4 w-[30rem] h-[30rem] bg-blue-500/10 rounded-full blur-3xl"
+            className="absolute top-20 right-1/4 w-[35rem] h-[35rem] bg-blue-500/10 rounded-full blur-3xl"
           />
           <motion.div
             animate={{
@@ -119,15 +119,15 @@ export default function Home() {
               repeat: Infinity,
               ease: "linear",
             }}
-            className="absolute bottom-20 left-1/4 w-[30rem] h-[30rem] bg-red-500/10 rounded-full blur-3xl"
+            className="absolute bottom-20 left-1/4 w-[35rem] h-[35rem] bg-red-500/10 rounded-full blur-3xl"
           />
         </div>
 
         <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10 w-full">
           <div className="grid lg:grid-cols-12 gap-12 items-center">
             
-            {/* Left Side: Copywriting & Dynamic Badging */}
-            <div className="space-y-8 lg:col-span-7 text-left">
+            {/* Left Side: Copywriting & Dynamic Badging (Col Span 6) */}
+            <div className="space-y-8 lg:col-span-6 text-left">
               {/* Pulsing radar active badge */}
               <motion.div
                 initial={{ opacity: 0, y: 15 }}
@@ -149,7 +149,7 @@ export default function Home() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3, duration: 0.7 }}
-                className="font-[family-name:var(--font-space-grotesk)] text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.08] text-gray-900"
+                className="font-[family-name:var(--font-space-grotesk)] text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] text-gray-900 tracking-tight"
               >
                 Mobile Battery <br />
                 <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-red-600 bg-clip-text text-transparent">
@@ -182,7 +182,7 @@ export default function Home() {
                   <motion.div
                     key={index}
                     whileHover={{ scale: 1.05, y: -2 }}
-                    className="flex items-center space-x-2 px-4 py-3 bg-white/80 backdrop-blur-md rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300"
+                    className="flex items-center space-x-2 px-4 py-3 bg-white/85 backdrop-blur-md rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300 cursor-pointer"
                   >
                     <feature.icon className="w-5 h-5 text-blue-600" />
                     <span className="font-bold text-gray-700 text-sm">{feature.text}</span>
@@ -223,34 +223,43 @@ export default function Home() {
               </motion.div>
             </div>
 
-            {/* Right Side: High-Resolution battery-au.png Framed Graphic */}
+            {/* Right Side: Massive High-Resolution battery-au.png (Col Span 6) */}
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.4, duration: 0.8 }}
-              className="lg:col-span-5 relative"
+              className="lg:col-span-6 relative w-full flex justify-center"
             >
               {/* Radial glow background ring behind the image */}
-              <div className="absolute inset-0 bg-gradient-to-tr from-blue-600/10 to-red-600/10 rounded-[3rem] blur-2xl transform rotate-3" />
+              <div className="absolute inset-0 bg-gradient-to-tr from-blue-600/20 to-red-600/20 rounded-[3rem] blur-3xl transform rotate-3 scale-105 pointer-events-none" />
               
               <motion.div
-                animate={{ y: [0, -8, 0] }}
-                transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-                className="relative rounded-[2.5rem] p-4 bg-white/70 backdrop-blur-xl border border-white shadow-2xl"
+                whileHover={{ y: -10, scale: 1.02, rotate: 1 }}
+                transition={{ type: "spring", stiffness: 100, damping: 15 }}
+                className="relative rounded-[2.8rem] p-1.5 bg-gradient-to-br from-blue-600 via-purple-600 to-red-600 shadow-2xl w-full max-w-[640px] cursor-pointer"
               >
-                <div className="relative rounded-[2rem] overflow-hidden aspect-[4/3] bg-gradient-to-br from-blue-50 to-red-50 flex items-center justify-center">
+                <div className="relative rounded-[2.5rem] overflow-hidden bg-white shadow-inner flex items-center justify-center p-2">
                   <img
                     src="/battery-au.png"
-                    alt="Battery Australia Vehicle Fleet"
-                    className="w-full h-full object-cover select-none pointer-events-none transition-transform duration-500 hover:scale-105"
+                    alt="Battery Australia Mobile Rescue Fleet"
+                    className="w-full h-auto min-h-[300px] lg:min-h-[440px] xl:min-h-[500px] object-cover rounded-[2.2rem] select-none pointer-events-none transition-transform duration-500 hover:scale-105"
                   />
                   
                   {/* Floating active dispatcher badge */}
-                  <div className="absolute bottom-4 right-4 bg-black/80 backdrop-blur-md px-4 py-2.5 rounded-xl border border-white/10 shadow-lg">
+                  <div className="absolute bottom-6 right-6 bg-black/85 backdrop-blur-md px-5 py-3.5 rounded-2xl border border-white/10 shadow-xl max-w-[240px]">
                     <p className="text-[10px] text-gray-400 uppercase tracking-widest font-bold">Roadside Fleet</p>
-                    <p className="text-sm text-white font-bold mt-0.5 flex items-center gap-1.5">
-                      <Zap className="w-4 h-4 text-amber-400 shrink-0 animate-bounce" />
+                    <p className="text-base text-white font-bold mt-1 flex items-center gap-2">
+                      <Zap className="w-5 h-5 text-amber-400 shrink-0 animate-bounce" />
                       <span>SEQ Strategic Dispatch</span>
+                    </p>
+                  </div>
+
+                  {/* Floating Left SLA Badge */}
+                  <div className="absolute top-6 left-6 bg-white/95 backdrop-blur-md px-5 py-3 rounded-2xl border border-blue-100 shadow-lg text-left hidden sm:block">
+                    <p className="text-[10px] text-blue-600 uppercase tracking-widest font-bold">Fast SLA Guarantee</p>
+                    <p className="text-base text-gray-900 font-extrabold mt-0.5 flex items-center gap-1.5">
+                      <Clock className="w-4 h-4 text-red-600 animate-pulse shrink-0" />
+                      <span>60 Mins Or Less</span>
                     </p>
                   </div>
                 </div>
