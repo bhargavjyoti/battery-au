@@ -12,7 +12,9 @@ import {
   Award,
   Zap,
   CheckCircle2,
-  Users
+  Users,
+  Headphones,
+  Wrench
 } from "lucide-react";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
@@ -127,6 +129,85 @@ export default function About() {
               ))}
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Our Dedicated Team Section */}
+      <section className="py-24 bg-gray-50/50 border-y border-gray-100">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 space-y-12">
+          
+          <div className="text-center max-w-2xl mx-auto space-y-4">
+            <span className="text-sm font-bold text-blue-600 uppercase tracking-widest block">Expert Assistance</span>
+            <h2 className="font-[family-name:var(--font-space-grotesk)] text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">
+              Get to Know <br />
+              <span className="bg-gradient-to-r from-blue-600 to-red-600 bg-clip-text text-transparent">
+                Our Dedicated Team
+              </span>
+            </h2>
+            <p className="text-lg text-gray-600">
+              Meet the highly-skilled professionals carrying out strategic 24/7 emergency dispatch and mobile technical roadside services across Southeast Queensland.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              {
+                name: "Andy",
+                role: "Customer Relations Officer",
+                icon: Headphones,
+                iconBg: "bg-blue-50 text-blue-600 border-blue-100",
+                desc: "Andy manages direct communications, vehicle routing, and emergency roadside dispatch with a friendly Brisbane smile."
+              },
+              {
+                name: "Sam",
+                role: "Battery Technician",
+                icon: Wrench,
+                iconBg: "bg-red-50 text-red-600 border-red-100",
+                desc: "Sam is our senior SEQ field technician, carrying expert certification in dual-battery installations and complex rig diagnostics."
+              },
+              {
+                name: "Ranjit",
+                role: "Battery Technician",
+                icon: Zap,
+                iconBg: "bg-amber-50 text-amber-600 border-amber-100",
+                desc: "Ranjit leads Gold Coast response units, specialized in heavy commercial diesel starts and advanced deep-cycle marine setups."
+              }
+            ].map((member, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.15, duration: 0.6 }}
+                whileHover={{ y: -8 }}
+                className="relative bg-white p-8 rounded-[2.5rem] border border-gray-100 hover:border-blue-200 transition-all duration-300 shadow-md hover:shadow-xl cursor-pointer flex flex-col justify-between text-left"
+              >
+                <div className="space-y-6">
+                  {/* Icon Frame */}
+                  <div className={`w-14 h-14 rounded-2xl ${member.iconBg} border flex items-center justify-center`}>
+                    <member.icon className="w-7 h-7" />
+                  </div>
+
+                  <div className="space-y-2">
+                    <h3 className="font-[family-name:var(--font-space-grotesk)] text-2xl font-bold text-gray-900">
+                      {member.name}
+                    </h3>
+                    <p className="text-sm font-semibold text-blue-600 uppercase tracking-wide">
+                      {member.role}
+                    </p>
+                  </div>
+
+                  <p className="text-gray-600 leading-relaxed text-base">
+                    {member.desc}
+                  </p>
+                </div>
+                
+                {/* Visual decorative line in card */}
+                <div className="w-12 h-1 bg-gradient-to-r from-blue-600 to-red-600 rounded-full mt-6" />
+              </motion.div>
+            ))}
+          </div>
+
         </div>
       </section>
 
