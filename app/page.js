@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import {
@@ -33,22 +33,29 @@ import {
   Instagram,
   ArrowRight,
   ChevronUp,
+  Clock as ClockIcon,
+  Shield as ShieldIcon,
+  Car as CarIcon,
+  Truck as TruckIcon,
+  Ship as ShipIcon,
+  RadioTower as RadioTowerIcon
 } from "lucide-react";
+import { 
+  PhoneIcon, MailIcon, MapPinIcon, BatteryIcon, ZapIcon, 
+  DollarSignIcon, CreditCardIcon, 
+  BikeIcon 
+} from "@animateicons/react/lucide";
+import { FaCcVisa, FaCcMastercard, FaCcPaypal } from "react-icons/fa";
+
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+import TestimonialSlider from "../components/TestimonialSlider";
 
 export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  const navLinks = [
+const navLinks = [
     { name: "Home", href: "/" },
     { name: "About", href: "/about" },
     {
@@ -70,178 +77,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-white overflow-x-hidden">
-      {/* Modern Glassmorphic Navbar */}
-      <motion.nav
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled
-            ? "bg-white/80 backdrop-blur-xl shadow-lg border-b border-gray-100"
-            : "bg-transparent"
-        }`}
-      >
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="flex items-center justify-between h-20">
-            {/* Logo */}
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="flex items-center space-x-2 cursor-pointer"
-            >
-              <div className="relative">
-                <motion.div
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                  className="absolute inset-0 bg-gradient-to-r from-blue-600 to-red-600 rounded-full blur-md opacity-50"
-                />
-                <div className="relative bg-gradient-to-r from-blue-600 to-red-600 p-2 rounded-full">
-                  <Battery className="w-6 h-6 text-white" />
-                </div>
-              </div>
-              <span className="font-[family-name:var(--font-space-grotesk)] text-2xl font-bold bg-gradient-to-r from-blue-600 to-red-600 bg-clip-text text-transparent">
-                Battery Australia
-              </span>
-            </motion.div>
-
-            {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center space-x-6">
-              {navLinks.map((link, index) => (
-                <div
-                  key={link.name}
-                  className="relative"
-                  onMouseEnter={() => link.dropdown && setActiveDropdown(link.name)}
-                  onMouseLeave={() => setActiveDropdown(null)}
-                >
-                  {link.dropdown ? (
-                    <motion.a
-                      href={link.href}
-                      initial={{ opacity: 0, y: -20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: index * 0.1 }}
-                      whileHover={{ scale: 1.05 }}
-                      className="relative text-gray-700 hover:text-blue-600 font-medium transition-colors group flex items-center space-x-1"
-                    >
-                      <span>{link.name}</span>
-                      <ChevronDown className="w-4 h-4" />
-                      <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-600 to-red-600 group-hover:w-full transition-all duration-300" />
-                    </motion.a>
-                  ) : (
-                    <Link href={link.href}>
-                      <motion.span
-                        initial={{ opacity: 0, y: -20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: index * 0.1 }}
-                        whileHover={{ scale: 1.05 }}
-                        className="relative text-gray-700 hover:text-blue-600 font-medium transition-colors group flex items-center space-x-1 cursor-pointer"
-                      >
-                        <span>{link.name}</span>
-                        <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-600 to-red-600 group-hover:w-full transition-all duration-300" />
-                      </motion.span>
-                    </Link>
-                  )}
-
-                  {/* Dropdown Menu */}
-                  {link.dropdown && activeDropdown === link.name && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 10 }}
-                      className="absolute top-full left-0 mt-2 w-56 bg-white/95 backdrop-blur-xl rounded-2xl shadow-xl border border-gray-100 py-2 z-50"
-                    >
-                      {link.dropdown.map((item, idx) => (
-                        <a
-                          key={idx}
-                          href="#"
-                          className="block px-4 py-3 text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-colors font-medium flex items-center justify-between group"
-                        >
-                          <span>{item}</span>
-                          <ChevronRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
-                        </a>
-                      ))}
-                    </motion.div>
-                  )}
-                </div>
-              ))}
-            </div>
-
-            {/* CTA Buttons */}
-            <div className="hidden lg:flex items-center space-x-4">
-              <motion.a
-                href="tel:+61492979067"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-full font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
-              >
-                <Phone className="w-4 h-4" />
-                <span>Call Now</span>
-              </motion.a>
-            </div>
-
-            {/* Mobile Menu Button */}
-            <motion.button
-              whileTap={{ scale: 0.95 }}
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 rounded-lg hover:bg-gray-100"
-            >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </motion.button>
-          </div>
-        </div>
-
-        {/* Mobile Menu */}
-        <motion.div
-          initial={false}
-          animate={mobileMenuOpen ? { height: "auto", opacity: 1 } : { height: 0, opacity: 0 }}
-          className="lg:hidden overflow-hidden bg-white/95 backdrop-blur-xl border-t border-gray-100"
-        >
-          <div className="px-6 py-4 space-y-3">
-            {navLinks.map((link) => (
-              <div key={link.name}>
-                {link.dropdown ? (
-                  <>
-                    <a
-                      href={link.href}
-                      className="block text-gray-700 hover:text-blue-600 font-medium py-2"
-                    >
-                      {link.name}
-                    </a>
-                    <div className="pl-4 space-y-2 mt-2">
-                      {link.dropdown.map((item, idx) => (
-                        <a
-                          key={idx}
-                          href="#"
-                          onClick={() => setMobileMenuOpen(false)}
-                          className="block text-sm text-gray-600 hover:text-blue-600 py-1"
-                        >
-                          {item}
-                        </a>
-                      ))}
-                    </div>
-                  </>
-                ) : (
-                  <Link
-                    href={link.href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="block text-gray-700 hover:text-blue-600 font-medium py-2"
-                  >
-                    {link.name}
-                  </Link>
-                )}
-              </div>
-            ))}
-            <div className="flex flex-col space-y-2 pt-4">
-              <a
-                href="tel:+61492979067"
-                className="flex items-center justify-center space-x-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-full font-semibold"
-              >
-                <Phone className="w-4 h-4" />
-                <span>Call Now</span>
-              </a>
-            </div>
-          </div>
-        </motion.div>
-      </motion.nav>
+      <Navbar />
 
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
@@ -284,7 +120,7 @@ export default function Home() {
                 transition={{ delay: 0.2 }}
                 className="inline-flex items-center space-x-2 bg-gradient-to-r from-blue-50 to-red-50 px-4 py-2 rounded-full border border-blue-100"
               >
-                <Zap className="w-4 h-4 text-blue-600" />
+                <ZapIcon className="w-4 h-4 text-blue-600" />
                 <span className="text-sm font-semibold text-gray-700">
                   Available 24/7 • Fast Response
                 </span>
@@ -355,7 +191,7 @@ export default function Home() {
                 >
                   <div className="absolute inset-0 bg-gradient-to-r from-blue-700 to-blue-800 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   <div className="relative flex items-center justify-center space-x-2">
-                    <Phone className="w-5 h-5" />
+                    <PhoneIcon className="w-5 h-5" />
                     <span>0492 979 067</span>
                   </div>
                 </motion.a>
@@ -367,7 +203,7 @@ export default function Home() {
                   className="group px-8 py-4 bg-white border-2 border-gray-200 text-gray-700 rounded-2xl font-semibold hover:border-blue-600 hover:text-blue-600 transition-all duration-300 text-center"
                 >
                   <div className="flex items-center justify-center space-x-2">
-                    <Mail className="w-5 h-5" />
+                    <MailIcon className="w-5 h-5" />
                     <span>Get Free Quote</span>
                   </div>
                 </motion.a>
@@ -380,7 +216,7 @@ export default function Home() {
                 transition={{ delay: 0.7 }}
                 className="flex items-center space-x-2 text-sm text-gray-500"
               >
-                <MapPin className="w-4 h-4" />
+                <MapPinIcon className="w-4 h-4" />
                 <span>Serving Brisbane & Gold Coast • Available 24/7</span>
               </motion.div>
             </div>
@@ -402,7 +238,7 @@ export default function Home() {
                 <div className="relative aspect-square bg-gradient-to-br from-blue-50 via-purple-50 to-red-50 rounded-2xl overflow-hidden">
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="text-center space-y-4">
-                      <Battery className="w-24 h-24 text-blue-600 mx-auto" />
+                      <BatteryIcon className="w-24 h-24 text-blue-600 mx-auto" />
                       <div className="space-y-2">
                         <p className="text-gray-600 font-medium">📸 Hero Image Needed</p>
                         <p className="text-sm text-gray-500">
@@ -431,7 +267,7 @@ export default function Home() {
                     className="absolute bottom-4 left-4 bg-white px-4 py-3 rounded-xl shadow-lg"
                   >
                     <div className="flex items-center space-x-2">
-                      <Zap className="w-4 h-4 text-yellow-500" />
+                      <ZapIcon className="w-4 h-4 text-yellow-500" />
                       <span className="text-sm font-semibold text-gray-700">Fast Service</span>
                     </div>
                   </motion.div>
@@ -463,23 +299,6 @@ export default function Home() {
             </motion.div>
           </div>
         </div>
-
-        {/* Scroll Indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1 }}
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-        >
-          <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-            className="flex flex-col items-center space-y-2 cursor-pointer"
-          >
-            <span className="text-sm text-gray-500 font-medium">Scroll to explore</span>
-            <ChevronDown className="w-6 h-6 text-gray-400" />
-          </motion.div>
-        </motion.div>
       </section>
 
       {/* Battery Types & Payments */}
@@ -496,7 +315,7 @@ export default function Home() {
               </p>
             </div>
             <div className="flex items-center gap-3 text-sm text-gray-700 bg-gray-50 border border-gray-100 rounded-2xl px-4 py-3 shadow-sm">
-              <Shield className="w-4 h-4 text-blue-600" />
+              <ShieldIcon className="w-4 h-4 text-blue-600" />
               <span>Warranty supplied on every install</span>
             </div>
           </div>
@@ -517,7 +336,7 @@ export default function Home() {
                 viewport={{ once: true, amount: 0.25 }}
                 transition={{ delay: 0.04 * idx, duration: 0.35 }}
                 whileHover={{ y: -4 }}
-                className="flex items-center justify-between px-5 py-4 rounded-xl border border-gray-100 bg-white shadow-sm hover:shadow-md transition-all duration-200"
+                className="flex items-center justify-between px-5 py-4 rounded-xl border border-gray-100 bg-white shadow-sm "
               >
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-50 to-red-50 flex items-center justify-center text-blue-700 font-semibold">
@@ -534,22 +353,26 @@ export default function Home() {
 
           <div className="mt-8 grid md:grid-cols-2 gap-4">
             <div className="flex items-center gap-3 px-4 py-3 rounded-xl bg-blue-50 border border-blue-100 text-blue-700 font-semibold">
-              <Clock className="w-4 h-4" />
+              <ClockIcon className="w-4 h-4" />
               60 minute arrival goal across Brisbane & Gold Coast
             </div>
             <div className="flex flex-wrap items-center gap-3 px-4 py-3 rounded-xl bg-gray-50 border border-gray-100 text-gray-700">
               <span className="text-sm font-semibold">Payments:</span>
-              <span className="px-2.5 py-1 rounded-full bg-white border border-gray-200 text-sm">VISA</span>
-              <span className="px-2.5 py-1 rounded-full bg-white border border-gray-200 text-sm">Mastercard</span>
-              <span className="px-2.5 py-1 rounded-full bg-white border border-gray-200 text-sm">PayPal</span>
-              <span className="px-2.5 py-1 rounded-full bg-white border border-gray-200 text-sm">Zip</span>
-              <span className="px-2.5 py-1 rounded-full bg-white border border-gray-200 text-sm">Afterpay</span>
+              <span className="px-3 py-1.5 rounded-full bg-white border border-gray-200 flex items-center gap-2 text-sm font-bold text-gray-800"><FaCcVisa className="w-5 h-5 text-blue-600" /> Visa</span>
+              <span className="px-3 py-1.5 rounded-full bg-white border border-gray-200 flex items-center gap-2 text-sm font-bold text-gray-800">
+                <svg viewBox="0 0 36 24" className="w-6 h-4" xmlns="http://www.w3.org/2000/svg"><path d="M12 12A12 12 0 1 0 24 12A12 12 0 1 0 12 12Z" fill="#ff5f00"/><path d="M22.68 12A12 12 0 0 1 18 20.48A12 12 0 0 1 13.32 12A12 12 0 0 1 18 3.52A12 12 0 0 1 22.68 12Z" fill="#eb001b"/><path d="M24 12A12 12 0 1 0 36 12A12 12 0 1 0 24 12Z" fill="#f79e1b"/></svg> 
+                Mastercard
+              </span>
+              <span className="px-3 py-1.5 rounded-full bg-white border border-gray-200 flex items-center gap-2 text-sm font-bold text-gray-800"><FaCcPaypal className="w-5 h-5 text-blue-500" /> PayPal</span>
+              <span className="px-3 py-1.5 rounded-full bg-white border border-gray-200 text-sm font-bold text-gray-800">Zip</span>
+              <span className="px-3 py-1.5 rounded-full bg-white border border-gray-200 text-sm font-bold text-[#b2fce4]">afterpay</span>
             </div>
           </div>
         </div>
       </section>
 
       {/* Service Highlights */}
+      <StatsAndTimeline />
       <section id="services" className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-red-50 py-20">
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute -top-20 -left-20 w-64 h-64 bg-blue-200/30 blur-3xl" />
@@ -622,7 +445,7 @@ export default function Home() {
                 viewport={{ once: true, amount: 0.3 }}
                 transition={{ delay: 0.05 * index, duration: 0.4, ease: "easeOut" }}
                 whileHover={{ y: -6, scale: 1.01 }}
-                className="group relative overflow-hidden rounded-2xl bg-white/90 backdrop-blur-xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 p-6"
+                className="group relative overflow-hidden rounded-2xl bg-white/90 backdrop-blur-xl border border-gray-100 shadow-sm  p-6"
               >
                 <div className="relative flex items-start justify-between mb-4">
                   <div className="p-3 rounded-2xl bg-gradient-to-br from-blue-50 to-red-50 text-blue-700">
@@ -676,430 +499,101 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Footer Section with Parallax Effect */}
-      <footer className="relative overflow-hidden bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900">
-        {/* Parallax Background Elements */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 0.1 }}
-          viewport={{ once: false, amount: 0.3 }}
-          transition={{ duration: 0.8 }}
-          className="absolute inset-0 pointer-events-none"
-        >
-          <motion.div
-            animate={{ y: [0, -30, 0], rotate: [0, 5, 0] }}
-            transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute top-20 left-10 w-64 h-64 bg-blue-500/20 rounded-full blur-3xl"
-          />
-          <motion.div
-            animate={{ y: [0, 30, 0], rotate: [0, -5, 0] }}
-            transition={{ duration: 25, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute bottom-20 right-10 w-96 h-96 bg-red-500/20 rounded-full blur-3xl"
-          />
-        </motion.div>
-
-        <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 pt-16 pb-8">
-          {/* Main Footer Content */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
-            {/* Company Info */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
-              <div className="flex items-center gap-2 mb-4">
-                <Battery className="w-8 h-8 text-blue-400" />
-                <h3 className="text-xl font-bold text-white">Battery Australia</h3>
-              </div>
-              <p className="text-gray-400 text-sm leading-relaxed mb-6">
-                Battery Australia Roadside Rescue – Emergency roadside Fuel Topup – Emergency roadside Battery replacement – Emergency Roadside Spare tyre installation – Emergency Roadside basic tyre puncture repair – Emergency Roadside jumpstart.
-              </p>
-              <div className="flex items-center gap-3">
-                <a
-                  href="https://www.facebook.com/batteryaustralia"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-lg bg-white/10 hover:bg-blue-600 flex items-center justify-center text-gray-400 hover:text-white transition-all duration-300"
-                >
-                  <Facebook className="w-5 h-5" />
-                </a>
-                <a
-                  href="https://www.linkedin.com/company/batteryaustralia"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-lg bg-white/10 hover:bg-blue-600 flex items-center justify-center text-gray-400 hover:text-white transition-all duration-300"
-                >
-                  <Linkedin className="w-5 h-5" />
-                </a>
-                <a
-                  href="https://www.instagram.com/batteryaustralia/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-lg bg-white/10 hover:bg-blue-600 flex items-center justify-center text-gray-400 hover:text-white transition-all duration-300"
-                >
-                  <Instagram className="w-5 h-5" />
-                </a>
-              </div>
-            </motion.div>
-
-            {/* Quick Links */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-            >
-              <h3 className="text-lg font-bold text-white mb-4">Quick Links</h3>
-              <ul className="space-y-2">
-                {[
-                  { label: "Home", href: "/" },
-                  { label: "About Us", href: "/about" },
-                  { label: "Battery Replacement", href: "#battery-replacement" },
-                  { label: "Service Area", href: "/service-area" },
-                  { label: "Blog", href: "#blog" },
-                  { label: "Contact Us", href: "#contact" },
-                ].map((link, idx) => (
-                  <li key={idx}>
-                    <Link
-                      href={link.href}
-                      className="text-gray-400 hover:text-blue-400 transition-colors duration-200 flex items-center gap-2 group"
-                    >
-                      <ArrowRight className="w-4 h-4 opacity-0 -ml-6 group-hover:opacity-100 group-hover:ml-0 transition-all duration-300" />
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-
-            {/* Contact Info */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              <h3 className="text-lg font-bold text-white mb-4">Contact Info</h3>
-              <ul className="space-y-3">
-                <li className="flex items-start gap-3 text-gray-400">
-                  <MapPin className="w-5 h-5 text-blue-400 mt-0.5 shrink-0" />
-                  <div>
-                    <p className="text-sm">5/17 Benronalds Street, Seventeen Mile Rocks, 4073, Brisbane, Australia</p>
-                  </div>
-                </li>
-                <li className="flex items-start gap-3 text-gray-400">
-                  <MapPin className="w-5 h-5 text-blue-400 mt-0.5 shrink-0" />
-                  <div>
-                    <p className="text-sm">74 Township Drive, Burleigh Head, Gold Coast, Australia</p>
-                  </div>
-                </li>
-                <li className="flex items-center gap-3 text-gray-400">
-                  <Phone className="w-5 h-5 text-blue-400 shrink-0" />
-                  <a href="tel:+61492979067" className="hover:text-blue-400 transition-colors duration-200">
-                    +61 492 979 067
-                  </a>
-                </li>
-                <li className="flex items-center gap-3 text-gray-400">
-                  <Mail className="w-5 h-5 text-blue-400 shrink-0" />
-                  <a href="mailto:info@batteryaustralia.com.au" className="hover:text-blue-400 transition-colors duration-200">
-                    info@batteryaustralia.com.au
-                  </a>
-                </li>
-              </ul>
-            </motion.div>
-
-            {/* Service Hours */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-            >
-              <h3 className="text-lg font-bold text-white mb-4">Service Hours</h3>
-              <div className="space-y-4">
-                <div className="flex items-center gap-3 px-4 py-3 rounded-lg bg-white/10 border border-white/20">
-                  <Clock className="w-6 h-6 text-blue-400" />
-                  <div>
-                    <p className="text-white font-semibold text-sm">24 Hours / 7 Days</p>
-                    <p className="text-gray-400 text-xs">Emergency Service</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3 px-4 py-3 rounded-lg bg-white/10 border border-white/20">
-                  <Zap className="w-6 h-6 text-yellow-400" />
-                  <div>
-                    <p className="text-white font-semibold text-sm">60 Min Response</p>
-                    <p className="text-gray-400 text-xs">Fast Service Guarantee</p>
-                  </div>
-                </div>
-                <div className="px-4 py-3 rounded-lg bg-gradient-to-r from-blue-600 to-red-600 text-white text-center">
-                  <p className="font-bold text-sm">Brisbane & Gold Coast</p>
-                  <p className="text-xs mt-1">Wide Delivery Coverage</p>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-
-          {/* Acknowledgement */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="pt-8 border-t border-white/10 mb-6"
-          >
-            <p className="text-gray-400 text-sm text-center italic">
-              Battery Australia acknowledges the Traditional Custodians of the Land and pays respects to Elders past, present and future.
-            </p>
-          </motion.div>
-
-          {/* Copyright */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.5 }}
-            className="text-center text-gray-500 text-sm"
-          >
-            <p>© 2025 Battery Australia. All Rights Reserved.</p>
-          </motion.div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
 
-function TestimonialSlider() {
-  const [activeIndex, setActiveIndex] = useState(0);
 
-  const testimonials = [
-    {
-      id: 1,
-      name: "Sheba Jacob",
-      rating: 5.0,
-      date: "3 months ago",
-      message: "Sam was honest and reliable. He provided a great service after-hours and takes pride in his work. Will be in touch for all our battery replacement requirement in future too, thanks heaps Sam!",
-      avatar: "SJ"
-    },
-    {
-      id: 2,
-      name: "Tana Pepa",
-      rating: 5.0,
-      date: "2 months ago",
-      message: "Great value Fast paced really friendly. Amazing service. They came according to my convinience. Replaced the batery in 20 mins. Excelent service",
-      avatar: "TP"
-    },
-    {
-      id: 3,
-      name: "TT AA",
-      rating: 5.0,
-      date: "2 months ago",
-      message: "I needed a battery quite late at night. Service was precise, prompt, and well priced.",
-      avatar: "TA"
-    },
-    {
-      id: 4,
-      name: "Altarium Ambient",
-      rating: 5.0,
-      date: "2 months ago",
-      message: "Had a battery replacement sorted within hours of phoning up, super prompt response from Sam and was arranged at a great price.",
-      avatar: "AA"
-    },
-    {
-      id: 5,
-      name: "Sharvani Padwal",
-      rating: 5.0,
-      date: "1 month ago",
-      message: "Amazing service. They came according to my convinience. Replaced the batery in 20 mins. Excelent service",
-      avatar: "SP"
-    }
-  ];
+
+import { useMotionValue, useTransform, animate, useInView } from "framer-motion";
+
+function AnimatedCounter({ from, to, duration = 2 }) {
+  const count = useMotionValue(from);
+  const rounded = useTransform(count, (latest) => Math.round(latest));
+  const ref = React.useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-50px" });
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % testimonials.length);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [testimonials.length]);
+    if (inView) {
+      const controls = animate(count, to, { duration: duration, ease: "easeOut" });
+      return controls.stop;
+    }
+  }, [inView, count, to, duration]);
 
+  return <motion.span ref={ref}>{rounded}</motion.span>;
+}
+
+function StatsAndTimeline() {
   return (
-    <div className="flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-12">
-      {/* Left side - Vertical reviewer cards (Desktop only) */}
-      <div className="hidden lg:block space-y-3 w-[320px]">
-        {testimonials.map((testimonial, index) => {
-          const isActive = index === activeIndex;
-          
-          return (
-            <motion.div
-              key={testimonial.id}
-              className={`flex items-center gap-3 p-4 rounded-xl cursor-pointer transition-all duration-300 ${
-                isActive 
-                  ? 'glass border-2 border-blue-500 shadow-xl scale-[1.02]' 
-                  : 'bg-white/70 border border-gray-200 hover:bg-white hover:shadow-md'
-              }`}
-              animate={{
-                scale: isActive ? 1.02 : 1,
-              }}
-              transition={{ duration: 0.3 }}
-              onClick={() => setActiveIndex(index)}
+    <section className="py-20 bg-gray-50 border-t border-gray-100 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        {/* Stats Counter */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-24 text-center">
+          {[
+            { to: 20000, suffix: "+", label: "Happy Customers" },
+            { to: 45, suffix: " Min", label: "Average Response" },
+            { to: 2, suffix: " Years", label: "Warranty Included" },
+            { to: 24, suffix: "/7", label: "Emergency Service" },
+          ].map((stat, idx) => (
+            <motion.div 
+              key={idx}
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: idx * 0.1, type: "spring", stiffness: 200 }}
+              whileHover={{ y: -5 }}
+              className="p-6 md:p-8 rounded-[2rem] bg-white shadow-sm border border-gray-100"
             >
-              {/* Profile Picture */}
-              <div className={`w-14 h-14 rounded-full flex items-center justify-center text-white font-bold shrink-0 shadow-md ${
-                isActive ? 'bg-gradient-to-br from-blue-600 to-red-600' : 'bg-gray-400'
-              }`}>
-                {testimonial.avatar}
+              <div className="text-4xl md:text-5xl font-bold bg-gradient-to-br from-blue-600 to-blue-800 bg-clip-text text-transparent mb-3 font-[family-name:var(--font-space-grotesk)]">
+                <AnimatedCounter from={0} to={stat.to} />{stat.suffix}
               </div>
-              
-              {/* Name and Rating */}
-              <div className="flex-1 min-w-0">
-                <p className={`font-semibold text-base truncate ${
-                  isActive ? 'text-gray-900' : 'text-gray-700'
-                }`}>
-                  {testimonial.name}
-                </p>
-                <div className="flex items-center gap-1 mt-1">
-                  <Star className={`w-4 h-4 fill-yellow-400 text-yellow-400`} />
-                  <span className="text-sm font-semibold text-gray-700">{testimonial.rating}</span>
-                </div>
-              </div>
+              <div className="text-gray-600 font-medium text-sm md:text-base uppercase tracking-wider">{stat.label}</div>
             </motion.div>
-          );
-        })}
-      </div>
+          ))}
+        </div>
 
-      {/* Center - Testimonial Message (Square Card) */}
-      <div className="relative flex items-center justify-center">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeIndex}
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -30 }}
-            transition={{ duration: 0.5, ease: "easeInOut" }}
-            className="w-full"
-          >
-            <div className="relative bg-white rounded-3xl p-8 shadow-2xl border border-gray-100 w-full max-w-[500px] min-h-[400px] flex flex-col justify-between">
-              <Quote className="absolute top-6 right-6 w-12 h-12 text-blue-200" />
-              <div className="relative z-10">
-                <p className="text-gray-700 text-lg leading-relaxed italic mb-6">
-                  "{testimonials[activeIndex].message}"
-                </p>
-              </div>
-              <div className="flex items-center justify-between pt-4 border-t border-gray-100">
-                <div>
-                  <p className="font-semibold text-gray-900">{testimonials[activeIndex].name}</p>
-                  <p className="text-sm text-gray-500">{testimonials[activeIndex].date}</p>
-                </div>
-                <div className="flex items-center gap-1 px-3 py-1.5 bg-yellow-50 rounded-full border border-yellow-200">
-                  <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                  <span className="text-sm font-semibold text-gray-700">{testimonials[activeIndex].rating}</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Navigation dots */}
-            <div className="flex items-center justify-center gap-2 mt-6">
-              {testimonials.map((_, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => setActiveIndex(idx)}
-                  className={`transition-all duration-300 rounded-full ${
-                    idx === activeIndex
-                      ? 'w-8 h-2 bg-gradient-to-r from-blue-600 to-red-600'
-                      : 'w-2 h-2 bg-gray-300 hover:bg-gray-400'
-                  }`}
-                />
-              ))}
-            </div>
-          </motion.div>
-        </AnimatePresence>
-      </div>
-
-      {/* Right side - Stats & Trust Indicators */}
-      <div className="hidden lg:flex flex-col gap-4 w-[280px]">
-        <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          className="glass p-6 rounded-2xl text-center"
-        >
-          <div className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-red-600">
-            4.9/5
+        {/* Timeline */}
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-16">
+            <span className="text-sm font-semibold text-blue-600 uppercase tracking-wide mb-2 block">Our Process</span>
+            <h2 className="font-[family-name:var(--font-space-grotesk)] text-3xl lg:text-5xl font-bold text-gray-900 mb-4">How It Works</h2>
+            <p className="text-gray-600 text-lg">Getting your battery replaced has never been easier or faster.</p>
           </div>
-          <p className="text-sm text-gray-600 mt-1">Average Rating</p>
-          <div className="flex items-center justify-center gap-1 mt-2">
-            {[...Array(5)].map((_, i) => (
-              <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+          
+          <div className="grid md:grid-cols-4 gap-8 relative">
+            {/* Desktop Connector Line */}
+            <div className="hidden md:block absolute top-12 left-10 right-10 h-0.5 bg-gradient-to-r from-blue-100 via-blue-200 to-blue-100 z-0"></div>
+            
+            {[
+              { title: "Call or Book", desc: "Tell us your vehicle and location.", icon: PhoneIcon },
+              { title: "We Diagnose", desc: "Free battery & charging system test.", icon: ZapIcon },
+              { title: "Install On-Site", desc: "Fitted on the spot in under 30 mins.", icon: BatteryIcon },
+              { title: "Drive Away", desc: "2-year warranty & free recycling.", icon: CarIcon },
+            ].map((step, idx) => (
+              <motion.div 
+                key={idx}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.15, type: "spring", stiffness: 200 }}
+                whileHover={{ y: -8 }}
+                className="relative bg-white p-6 rounded-3xl shadow-lg border border-gray-100 z-10 flex flex-col items-center text-center group"
+              >
+                <div className="w-16 h-16 bg-blue-50 group-hover:bg-blue-600 rounded-2xl flex items-center justify-center mb-6 transition-colors duration-300 -mt-12 shadow-md">
+                  <step.icon className="w-8 h-8 text-blue-600 group-hover:text-white transition-colors duration-300" />
+                </div>
+                <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-600 font-bold flex items-center justify-center text-sm mb-4">
+                  {idx + 1}
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">{step.title}</h3>
+                <p className="text-gray-600 text-sm leading-relaxed">{step.desc}</p>
+              </motion.div>
             ))}
           </div>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.1 }}
-          className="glass p-6 rounded-2xl text-center"
-        >
-          <div className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-red-600">
-            2,500+
-          </div>
-          <p className="text-sm text-gray-600 mt-1">Happy Customers</p>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.2 }}
-          className="glass p-6 rounded-2xl text-center"
-        >
-          <div className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-red-600">
-            24/7
-          </div>
-          <p className="text-sm text-gray-600 mt-1">Emergency Service</p>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.3 }}
-          className="bg-gradient-to-br from-blue-600 to-red-600 p-6 rounded-2xl text-white text-center shadow-lg"
-        >
-          <p className="text-sm font-semibold mb-2">✓ Same Day Service</p>
-          <p className="text-sm font-semibold mb-2">✓ All Battery Types</p>
-          <p className="text-sm font-semibold">✓ Warranty Included</p>
-        </motion.div>
+        </div>
       </div>
-
-      {/* Mobile - Single active reviewer card at bottom */}
-      <div className="lg:hidden w-full max-w-[400px] mt-4">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={`mobile-${activeIndex}`}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.5 }}
-            className="flex items-center gap-3 p-4 rounded-xl glass border-2 border-blue-500 shadow-xl"
-          >
-            <div className="w-14 h-14 rounded-full flex items-center justify-center text-white font-bold shrink-0 shadow-md bg-gradient-to-br from-blue-600 to-red-600">
-              {testimonials[activeIndex].avatar}
-            </div>
-            <div className="flex-1 min-w-0">
-              <p className="font-semibold text-base text-gray-900">
-                {testimonials[activeIndex].name}
-              </p>
-              <div className="flex items-center gap-1 mt-1">
-                <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                <span className="text-sm font-semibold text-gray-700">{testimonials[activeIndex].rating}</span>
-              </div>
-            </div>
-          </motion.div>
-        </AnimatePresence>
-      </div>
-    </div>
+    </section>
   );
 }
 
