@@ -136,7 +136,7 @@ export default function ContactUs() {
                     key={index}
                     href={contact.href}
                     whileHover={{ y: -6, scale: 1.01 }}
-                    className={`block relative p-8 rounded-[2.5rem] border ${contact.cardStyle} shadow-lg hover:shadow-xl transition-all duration-300 group cursor-pointer`}
+                    className={`block relative p-6 sm:p-8 rounded-[2rem] sm:rounded-[2.5rem] border ${contact.cardStyle} shadow-lg hover:shadow-xl transition-all duration-300 group cursor-pointer`}
                   >
                     {contact.glowing && (
                       <div className="absolute top-6 right-6 flex items-center gap-2">
@@ -148,16 +148,16 @@ export default function ContactUs() {
                       </div>
                     )}
                     
-                    <div className="flex gap-6 items-start">
+                    <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-start pt-6 sm:pt-0">
                       <div className={`w-14 h-14 rounded-2xl ${contact.bgColor} flex items-center justify-center shrink-0`}>
                         <contact.icon className={`w-7 h-7 ${contact.iconColor}`} />
                       </div>
                       
-                      <div className="space-y-2 grow">
+                      <div className="space-y-2 grow min-w-0">
                         <h4 className="text-sm font-bold text-gray-500 uppercase tracking-wider">
                           {contact.title}
                         </h4>
-                        <h3 className="font-[family-name:var(--font-space-grotesk)] text-2xl lg:text-3xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors">
+                        <h3 className="font-[family-name:var(--font-space-grotesk)] text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors break-all">
                           {contact.detail}
                         </h3>
                         <p className="text-gray-600 text-sm leading-relaxed">
@@ -188,10 +188,10 @@ export default function ContactUs() {
               </div>
 
               {/* Claymorphic Timeline Card */}
-              <div className="clay p-8 rounded-[2.5rem] bg-white border border-gray-100 space-y-6 relative overflow-hidden">
+              <div className="clay p-6 sm:p-8 rounded-[2rem] sm:rounded-[2.5rem] bg-white border border-gray-100 space-y-6 relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-blue-50/40 rounded-bl-[10rem] -z-10" />
 
-                <div className="flex gap-4">
+                <div className="flex flex-col sm:flex-row gap-4">
                   <div className="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
                     <Clock className="w-6 h-6 animate-spin-slow" />
                   </div>
@@ -205,7 +205,7 @@ export default function ContactUs() {
 
                 {/* Illustrated visual comparison */}
                 <div className="space-y-4 pt-2">
-                  <div className="flex gap-4 items-start">
+                  <div className="flex flex-col sm:flex-row gap-4 items-start">
                     <div className="w-2.5 h-2.5 rounded-full bg-red-500 mt-2 animate-ping shrink-0" />
                     <div>
                       <h5 className="font-bold text-gray-900 text-base">24/7/365 Mobile Emergency Vans</h5>
@@ -215,7 +215,7 @@ export default function ContactUs() {
                     </div>
                   </div>
 
-                  <div className="flex gap-4 items-start">
+                  <div className="flex flex-col sm:flex-row gap-4 items-start">
                     <div className="w-2.5 h-2.5 rounded-full bg-blue-500 mt-2 shrink-0" />
                     <div>
                       <h5 className="font-bold text-gray-900 text-base">In-Depot Collection & Consultations</h5>
