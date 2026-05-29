@@ -41,10 +41,18 @@ export default function Footer() {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <div className="flex items-center gap-2 mb-4">
-                <BatteryIcon className="w-8 h-8 text-blue-400" />
-                <h3 className="text-xl font-bold text-white">Battery Australia</h3>
-              </div>
+              <Link href="/" className="inline-block mb-4 cursor-pointer">
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <img
+                    src="/logo.webp"
+                    alt="Battery Australia Logo"
+                    className="h-12 w-auto object-contain cursor-pointer"
+                  />
+                </motion.div>
+              </Link>
               <p className="text-gray-400 text-sm leading-relaxed mb-6">
                 Battery Australia Roadside Rescue – Emergency roadside Fuel Topup – Emergency roadside Battery replacement – Emergency Roadside Spare tyre installation – Emergency Roadside basic tyre puncture repair – Emergency Roadside jumpstart.
               </p>
@@ -91,7 +99,7 @@ export default function Footer() {
                   { label: "Battery Replacement", href: "/#battery-replacement" },
                   { label: "Service Area", href: "/service-area" },
                   { label: "Blog", href: "/#blog" },
-                  { label: "Contact Us", href: "/#contact" },
+                  { label: "Contact Us", href: "/contact-us" },
                 ].map((link, idx) => (
                   <li key={idx}>
                     <Link

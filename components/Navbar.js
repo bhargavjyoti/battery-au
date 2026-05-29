@@ -36,7 +36,7 @@ export default function Navbar() {
     },
     { name: "Service Area", href: "/service-area" },
     { name: "Blog", href: "/#blog" },
-    { name: "Contact Us", href: "/#contact" },
+    { name: "Contact Us", href: "/contact-us" },
   ];
 
   return (
@@ -55,25 +55,19 @@ export default function Navbar() {
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="flex items-center space-x-2 cursor-pointer"
-            >
-              <div className="relative">
-                <motion.div
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                  className="absolute inset-0 bg-gradient-to-r from-blue-600 to-red-600 rounded-full blur-md opacity-50"
+            <Link href="/" className="cursor-pointer">
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="flex items-center"
+              >
+                <img
+                  src="/logo.webp"
+                  alt="Battery Australia Logo"
+                  className="h-10 w-auto object-contain cursor-pointer"
                 />
-                <div className="relative bg-gradient-to-r from-blue-600 to-red-600 p-2 rounded-full">
-                  <BatteryIcon className="w-6 h-6 text-white" />
-                </div>
-              </div>
-              <span className="font-[family-name:var(--font-space-grotesk)] text-2xl font-bold bg-gradient-to-r from-blue-600 to-red-600 bg-clip-text text-transparent">
-                Battery Australia
-              </span>
-            </motion.div>
+              </motion.div>
+            </Link>
 
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center space-x-6">
