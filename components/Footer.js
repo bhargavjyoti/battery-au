@@ -98,7 +98,6 @@ export default function Footer() {
                   { label: "About Us", href: "/about" },
                   { label: "Battery Replacement", href: "/#battery-replacement" },
                   { label: "Service Area", href: "/service-area" },
-                  { label: "Blog", href: "/#blog" },
                   { label: "Contact Us", href: "/contact-us" },
                 ].map((link, idx) => (
                   <li key={idx}>

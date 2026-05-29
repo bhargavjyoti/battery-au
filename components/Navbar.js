@@ -35,7 +35,6 @@ export default function Navbar() {
       ],
     },
     { name: "Service Area", href: "/service-area" },
-    { name: "Blog", href: "/#blog" },
     { name: "Contact Us", href: "/contact-us" },
   ];
 
