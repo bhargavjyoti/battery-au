@@ -399,7 +399,7 @@ export default function ServiceArea() {
                 {searchQuery && (
                   <button
                     onClick={() => setSearchQuery("")}
-                    className="px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-500 rounded-lg text-sm transition-colors mr-2"
+                    className="px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-500 rounded-lg text-sm transition-colors mr-2 cursor-pointer"
                   >
                     Clear
                   </button>
@@ -448,9 +448,27 @@ export default function ServiceArea() {
       {/* Alphabet Quick Links section */}
       <section className="sticky top-20 z-40 bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100 py-4">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <span className="text-sm font-bold text-gray-700 uppercase tracking-wide shrink-0">
-            Quick Jump By Letter:
-          </span>
+          <div className="flex items-center gap-3 shrink-0">
+            <span className="text-sm font-bold text-gray-700 uppercase tracking-wide">
+              Quick Jump By Letter:
+            </span>
+            <AnimatePresence>
+              {(activeLetter || searchQuery) && (
+                <motion.button
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.8 }}
+                  onClick={() => {
+                    setActiveLetter(null);
+                    setSearchQuery("");
+                  }}
+                  className="px-3 py-1.5 bg-red-50 hover:bg-red-100 text-red-600 font-semibold text-xs rounded-lg transition-colors cursor-pointer"
+                >
+                  Reset Filter
+                </motion.button>
+              )}
+            </AnimatePresence>
+          </div>
           <div className="flex gap-1.5 overflow-x-auto pb-2 md:pb-0 scrollbar-none">
             {availableLetters.map((letter) => {
               const isActive = activeLetter === letter;
@@ -458,7 +476,7 @@ export default function ServiceArea() {
                 <button
                   key={letter}
                   onClick={() => handleLetterClick(letter)}
-                  className={`w-9 h-9 shrink-0 flex items-center justify-center rounded-lg font-bold text-sm transition-all duration-300 ${
+                  className={`w-9 h-9 shrink-0 flex items-center justify-center rounded-lg font-bold text-sm transition-all duration-300 cursor-pointer ${
                     isActive
                       ? "bg-blue-600 text-white shadow-md shadow-blue-500/30 scale-110"
                       : "bg-gray-50 text-gray-600 hover:bg-gray-100 hover:text-blue-600"
@@ -468,17 +486,6 @@ export default function ServiceArea() {
                 </button>
               );
             })}
-            {(activeLetter || searchQuery) && (
-              <button
-                onClick={() => {
-                  setActiveLetter(null);
-                  setSearchQuery("");
-                }}
-                className="px-3 h-9 shrink-0 bg-red-50 text-red-600 font-semibold text-xs rounded-lg hover:bg-red-100 transition-colors"
-              >
-                Reset Filter
-              </button>
-            )}
           </div>
         </div>
       </section>
@@ -535,7 +542,7 @@ export default function ServiceArea() {
                         <motion.div
                           key={suburb}
                           whileHover={{ y: -4 }}
-                          className="group relative bg-white px-5 py-4 rounded-xl border border-gray-100 shadow-sm hover:shadow-md hover:border-blue-200 transition-all duration-300 flex items-center gap-3 cursor-default"
+                          className="group relative bg-white px-5 py-4 rounded-xl border border-gray-100 shadow-sm hover:shadow-md hover:border-blue-200 transition-all duration-300 flex items-center gap-3 cursor-pointer"
                         >
                           {/* Ambient border hover highlight */}
                           <div className="absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-blue-600 to-red-600 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 rounded-b-xl" />
@@ -670,7 +677,7 @@ export default function ServiceArea() {
                 >
                   <button
                     onClick={() => setOpenFaq(isOpen ? null : index)}
-                    className="w-full flex items-center justify-between p-6 text-left hover:bg-gray-50/50 transition-colors duration-200"
+                    className="w-full flex items-center justify-between p-6 text-left hover:bg-gray-50/50 transition-colors duration-200 cursor-pointer"
                   >
                     <span className="font-bold text-gray-900 text-lg pr-8">{faq.q}</span>
                     <ChevronDown className={`w-5 h-5 text-blue-600 transition-transform duration-300 shrink-0 ${isOpen ? 'rotate-180' : ''}`} />
