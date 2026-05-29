@@ -144,13 +144,12 @@ export default function Navbar() {
               </motion.a>
             </div>
 
-            {/* Mobile Menu Button */}
             <motion.button
               whileTap={{ scale: 0.95 }}
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 rounded-lg hover:bg-gray-100"
+              className="lg:hidden p-2 rounded-lg hover:bg-gray-100 text-black focus:outline-none"
             >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {mobileMenuOpen ? <X className="w-6 h-6 text-black stroke-[2.5]" /> : <Menu className="w-6 h-6 text-black stroke-[2.5]" />}
             </motion.button>
           </div>
         </div>
